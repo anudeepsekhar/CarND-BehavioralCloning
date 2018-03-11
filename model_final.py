@@ -1,9 +1,10 @@
+# Importing Libraries
 import cv2
 import csv
 import numpy as np
 import os
 
-
+# function to parse through csv file and get records
 def getCsvLines():
     lines = []
     with open('/home/carnd/data1/driving_log.csv') as csvfile:
@@ -13,7 +14,7 @@ def getCsvLines():
 #    print(len(lines))
     return lines
 
-
+# function to get the path names of center, left and right images and measurements
 def getdata(lines):
     left_images = []
     center_images = []
@@ -42,7 +43,7 @@ def getdata(lines):
     print(len(m_tot))
     return left_images,right_images,center_images,m_tot
 
-
+# this function consolidates data into to arrays of image paths and its corrosponding measurements
 def combine_data(left_images,right_images,center_images,measurement):
     image_paths = []
     image_paths.extend(center_images)
@@ -57,7 +58,7 @@ def combine_data(left_images,right_images,center_images,measurement):
 
 import sklearn
 
-
+# generator for batch training
 def generator(samples, batch_size=32):
     num_samples = len(samples)
     while 1:  # Loop forever so the generator never terminates
@@ -88,7 +89,7 @@ from keras.layers import Flatten, Dense, Lambda, Convolution2D, Cropping2D
 from keras.layers.pooling import MaxPooling2D
 import matplotlib.pyplot as plt
 
-
+# Training Model
 def model():
     model = Sequential()
     model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3)))
@@ -112,6 +113,7 @@ print(len(image_paths))
 print(len(measurements))
 from sklearn.model_selection import train_test_split
 samples = list(zip(image_paths, measurements))
+# splitting the data into test set and validation set
 train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 
 train_generator = generator(train_samples, batch_size=32)
@@ -119,6 +121,7 @@ validation_generator = generator(validation_samples, batch_size=32)
 print(len(samples))
 model = model()
 
+# Training model using Adam optimizer
 model.compile(loss='mse', optimizer='adam')
 #history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples), validation_data=validation_generator, nb_val_samples=len(validation_samples), nb_epoch=3, verbose=1)
 model.fit_generator(train_generator, samples_per_epoch= len(train_samples),nb_epoch =5,validation_data=validation_generator, nb_val_samples=len(validation_samples), verbose = 1)
