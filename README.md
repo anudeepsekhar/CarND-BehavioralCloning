@@ -116,7 +116,7 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 
 
-![png](example/output_11_0.png)
+![png](example/output_11_0.jpg)
 
 
 #### 2. Final Model Architecture
