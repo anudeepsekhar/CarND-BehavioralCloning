@@ -9,7 +9,7 @@ images = []
 measurements = []
 
 lines = []
-with open('/home/carnd/data/driving_log.csv') as csvfile:
+with open('/home/carnd/data1/driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
     for line in reader:
         lines.append(line)
@@ -21,7 +21,7 @@ for line in lines:
         source_path = line[i]
         filename = source_path.split("\\")[-1]
 #       print(filename)
-        current_path = '/home/carnd/data/IMG/' + filename
+        current_path = '/home/carnd/data1/IMG/' + filename
         image_center = cv2.imread(current_path)
 #       print(image_center.shape)
         images.append(image_center)
@@ -33,18 +33,18 @@ for line in lines:
             measurements.append(float(line[3])-correction)
 
 augmented_images, augmented_measurements = [], []
-#for image,measurement in zip(images, measurements):
-#    augmented_images.append(image)
-#    augmented_measurements.append(measurement)
-#    augmented_images.append(cv2.flip(image,1))
-#    augmented_measurements.append(measurement * -1.0)
+for image,measurement in zip(images, measurements):
+    augmented_images.append(image)
+    augmented_measurements.append(measurement)
+    augmented_images.append(cv2.flip(image,1))
+    augmented_measurements.append(measurement * -1.0)
 
 #X_train = np.array(augmented_images)
 #y_train = np.array(augmented_measurements)
-X_train = np.array(images)
-y_train = np.array(measurements)
+X_train = np.array(augmented_images)
+y_train = np.array(augmented_measurements)
 print(X_train.shape)
-img_rows, img_cols = 160, 320
+#img_rows, img_cols = 160, 320
 #x_train =X_train.reshape(X_train.shape[0], img_rows, img_cols, 3)
 #x_test = x_test.reshape(x_test.shape[0], img_rows, img_cols, 1)
 
@@ -70,4 +70,5 @@ model.compile(loss='mse', optimizer = 'adam')
 model.fit(X_train, y_train, validation_split = 0.2, shuffle = True, nb_epoch = 7)
 
 model.save('model.h5')
+
 
