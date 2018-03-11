@@ -189,4 +189,11 @@ I finally randomly shuffled the data set and put 20% of the data into a validati
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 5. I used an adam optimizer so that manually training the learning rate wasn't necessary.
 
- 
+## Conclusion and Discussion
+
+I could easily spend hours upon hours tuning the data and model to perform optimally on both tracks, but to manage my time effectively I chose to conclude my efforts as soon as the model performed satisfactorily on both tracks. I fully plan to revisit this project when time permits.
+One way that I would like to improve my implementation is related to the distribution flattening scheme.
+I would also like to revisit implementing a more agressive crop to the images before feeding them to the neural net. 
+I would also like to modify the architecture to reduce the number of parameters as it would make it a lot easier for the model to train aswell as it would be able to predict in near real time.
+
+
