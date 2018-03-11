@@ -116,7 +116,7 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 
 
-![png](output_11_0.png)
+![png](example/output_11_0.png)
 
 
 #### 2. Final Model Architecture
@@ -175,7 +175,7 @@ Layer|Properties
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
-![alt text][image2]
+![image2](examples/inputs.jpg)
 
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recove from the left side and right side.
 
